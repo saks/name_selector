@@ -1,0 +1,30 @@
+config/*.yml
+db/schema.rb
+db/cms_dumps/*
+log/
+tmp/
+public/38nhf3189NQrevoke_vpn_accounts.txt
+public/assets
+
+# IDE directories
+.idea/
+nbproject/
+.sass-cache/
+Session.vim
+tags
+*~
+
+# RVM related stuff
+.rvmrc
+
+db/geo/*.dat
+db/certs/cacert.pem
+public/javascripts/translations.js
+
+.tddium
+.tddium-deploy-key
+.tddium*
+
+spec/vcr/
+/chromedriver.log
+/coverage
