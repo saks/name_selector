@@ -28,3 +28,8 @@ public/javascripts/translations.js
 spec/vcr/
 /chromedriver.log
 /coverage
+
+*~
+*.orig
+*.pyc
+*.swp
