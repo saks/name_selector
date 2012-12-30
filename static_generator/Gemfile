@@ -17,7 +17,7 @@ group :assets do
   gem 'compass-rails'
   gem 'therubyracer'
   gem 'uglifier'
-  gem 'backbonejs-rails'
+  gem 'rails-backbone'
 end
 
 gem 'jquery-rails'

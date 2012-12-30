@@ -7,13 +7,13 @@
 
 .row.sex-buttons
   .span1
-  = link_to 'javascript:void(0)' do
-    .span3.btn.btn-large
+  .span4
+    %button.btn.btn-large.btn-block.select-sex{ data: { sex: 'boy' } }
       %h2
         {{boy}}
-  .span3
-  = link_to 'javascript:void(0)' do
-    .span3.btn.btn-large
+  .span2
+  .span4
+    %button.btn.btn-large.btn-block.select-sex{ data: { sex: 'girl' } }
       %h2
         {{girl}}
   .span1
