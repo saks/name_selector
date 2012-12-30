@@ -65,16 +65,23 @@ class NameSelector.Views.Names extends Backbone.View
   events:
     'click #names': 'toggle'
     'click .select_scope': 'changeScope'
+    'click .start-removing a': 'startRemoving'
+    'click .stop-removing a': 'stopRemoving'
 
   template: HandlebarsTemplates.names
   render: ->
+    currentNameScore = Storage.getCurrentNameScore()
+
     @$el.html @template(
       select_for: 'Выбираем имя для '
       sex: 'мальчика'
       boy: 'мальчика'
       girl: 'девочки'
       from: ' из '
-      names_scope: T().scope[Storage.getCurrentNameScore()]
+      names_scope: T().scope[currentNameScore]
+      removeModeEnabled: currentNameScore > 0
+      canUpNames: currentNameScore < 5
+      removeMode: NameSelector.removeMode
     )
     @addAll()
     @
@@ -86,17 +93,36 @@ class NameSelector.Views.Names extends Backbone.View
     (new NameSelector.Views.Name model: name).render()
 
   toggle: (event)->
+    return if 5 == Storage.getCurrentNameScore() && !NameSelector.removeMode
+
+
     button = $(event.target)
     nameId = button.data 'id'
 
+
     if nameId
-      button.toggleClass 'btn-primary'
-      AllNames.get(nameId)[if button.hasClass 'active' then 'down' else 'up']()
+      klass = if true == NameSelector.removeMode then 'btn-danger' else 'btn-success'
+      button.toggleClass klass
+
+      methodName = if 'btn-danger' == klass
+        if button.hasClass(klass) then 'down' else 'up'
+      else if 'btn-success' == klass
+        if button.hasClass(klass) then 'up' else 'down'
+
+      AllNames.get(nameId)[methodName]()
 
   changeScope: (event)->
     target = @$ event.target
     score  = (if target.hasClass 'select_scope' then target else target.parent()).data 'score'
     Storage.setCurrentNameScore score
+    @render()
+
+  startRemoving: ->
+    NameSelector.removeMode = true
+    @render()
+
+  stopRemoving: ->
+    NameSelector.removeMode = false
     @render()
 
 

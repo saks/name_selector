@@ -29,8 +29,7 @@ window.Name = class Name extends Backbone.Model
     Storage.addToScores id, newScore
 
 Name.withScore = (score)->
-  score = score + ''
-  if score is '0'
+  if 0 == score
     idsToReject = _.flatten [Storage.idsWithScore(1), Storage.idsWithScore(2),
       Storage.idsWithScore(3), Storage.idsWithScore(4), Storage.idsWithScore(5)]
 

@@ -1,6 +1,6 @@
 .row
-  .span7
-  .span5
+  .span6
+  .span6
     .muted
       {{select_for}}
       %span.dropdown
@@ -38,7 +38,30 @@
               %i.icon-heart
               избранные
 
-    %p.muted
+.row
+  .span6
+  .span6
+    {{#if canUpNames}}
+    .muted
       Кликните на те имена которые Вам нравятся.
+    {{else}}
+    .text-success
+      Пора бы и определиться :)
+    {{/if}}
+.row
+  .span6
+  .span6.text-warning
+    {{#if removeModeEnabled}}
+    {{#if removeMode}}
+    %span.text-warning.stop-removing
+      = link_to 'Закончить удаление', 'javascript:void(0)'
+    {{else}}
+    %span.text-warning.start-removing
+      = link_to 'Начать удаление', 'javascript:void(0)'
+    {{/if}}
+    имён из этого списка
+    {{else}}
+    &nbsp;
+    {{/if}}
 
 #names

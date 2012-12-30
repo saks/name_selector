@@ -1,7 +1,7 @@
 window.Storage = Storage =
 
   getCurrentNameScore: ->
-    localStorage.getItem('currentNameScore') || 0
+    parseInt(localStorage.getItem('currentNameScore') || 0, 10)
 
   setCurrentNameScore: (score)->
     localStorage.setItem 'currentNameScore', score
@@ -38,4 +38,3 @@ window.Storage = Storage =
       ids = Storage.idsWithScore score
       ids.push id
       localStorage.setItem Storage.keyForScore(score), _.uniq(ids).join(',')
-

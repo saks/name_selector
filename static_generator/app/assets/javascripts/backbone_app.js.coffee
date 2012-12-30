@@ -1,6 +1,7 @@
 window.NameSelector =
   currentLocale: 'ru'
-  currentNamesScore: '0'
+  currentNameScore: 0
+  removeMode: false
   Models:      {}
   Collections: {}
   Routes:      {}
