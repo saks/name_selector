@@ -14,35 +14,6 @@
             %a{href: '#'}
               %h4
                 {{back_to_main_page}}
-
-          {{#if is_main_page}}
-          %li.dropdown
-            {{else}}
-          %li.active.dropdown
-            {{/if}}
-            %a.dropdown-toggle{data: {toggle: :dropdown}, href: 'javascript:void(0)'}
-              %h4
-                Выбирать из
-
-            %ul.dropdown-menu{role: :menu, 'aria-labelledby' => :dLabel}
-              %li.active
-                %a{href: 'javascript:void(0)'}
-                  Ещё не просмотренных
-              %li
-                %a{href: 'javascript:void(0)'}
-                  Помеченных один раз
-              %li
-                %a{href: 'javascript:void(0)'}
-                  Помеченных два раза
-              %li
-                %a{href: 'javascript:void(0)'}
-                  Помеченных три раза
-              %li
-                %a{href: 'javascript:void(0)'}
-                  Помеченных четыре раза
-              %li
-                %a{href: 'javascript:void(0)'}
-                  Лучших
   .main
   %hr
   .footer

@@ -1,6 +1,43 @@
-%h3
-  Выбираем имя для мальчика!
-%p
-  Кликните на те имена которые Вам нравятся.
+.row
+  .pull-right
+    .muted
+      {{select_for}}
+      %span.dropdown
+        %a.sex{href: 'javascript:void(0)', data: {toggle: :dropdown}}
+          {{sex}}
+        %ul.dropdown-menu{role: 'menu', 'aria-labelledby' => 'dLabel'}
+          %li
+            = link_to '{{boy}}', 'javascript:void(0)'
+          %li
+            = link_to '{{girl}}', 'javascript:void(0)'
+
+
+      {{from}}
+      %span.dropdown
+        %a.names-scope{href: 'javascript:void(0)', data: {toggle: :dropdown}}
+          {{names_scope}}
+
+        %ul.dropdown-menu
+          %li
+            = link_to 'javascript:void(0)' do
+              %i.icon-search
+              не просмотренные
+          %li.divider
+          %li
+            = link_to 'выбранные 1 раз', 'javascript:void(0)'
+          %li
+            = link_to 'выбранные 2 раза', 'javascript:void(0)'
+          %li
+            = link_to 'выбранные 3 раза', 'javascript:void(0)'
+          %li
+            = link_to 'выбранные 4 раза', 'javascript:void(0)'
+          %li.divider
+          %li
+            = link_to 'javascript:void(0)' do
+              %i.icon-heart
+              избранные
+
+    %p.muted
+      Кликните на те имена которые Вам нравятся.
 
 #names

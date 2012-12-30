@@ -66,7 +66,14 @@ class NameSelector.Views.Names extends Backbone.View
     'click #names': 'toggle'
   template: HandlebarsTemplates.names
   render: ->
-    @$el.html @template()
+    @$el.html @template(
+      select_for: 'Выбираем имя для '
+      sex: 'мальчика'
+      boy: 'мальчика'
+      girl: 'девочки'
+      from: ' из ещё '
+      names_scope: 'не просмотренных имён'
+    )
     @addAll()
     @
 
