@@ -14,11 +14,9 @@ window.NameSelector =
   Routes:      {}
   Views:       {}
   init: ->
+    AllNames.reset [{text: 'Alex', id: '1'}, {text: 'Peter', id: '2'}]
     NameSelector.app = new NameSelector.Routes.Names
     Backbone.history.start()
-    # NamesToSelect.reset([{text: 'Alex', id: '1'}, {text: 'Peter', id: '2'}])
-
-
 
 
 
@@ -28,18 +26,26 @@ class Name extends Backbone.Model
   defaults:
     score: 0
   up: ->
-    @save score: @get('score') + 1
+    @set 'score', @get('score') + 1
   down: ->
-    @save score: @get('score') - 1
+    @set 'score', @get('score') - 1
 
 # collections
-NamesList = Backbone.Collection.extend
+PersistedNames = Backbone.Collection.extend
   model: Name
   localStorage: new Backbone.LocalStorage('name-selector')
 
-window.NamesToSelect = new NamesList
+NotPersistedNames = Backbone.Collection.extend
+  model: Name
+  # localStorage: new Backbone.LocalStorage('name-selector')
 
-
+window.AllNames = new NotPersistedNames
+# window.Names1 = new PersistedNames
+# window.Names2 = new PersistedNames
+# window.Names3 = new PersistedNames
+# window.Names4 = new PersistedNames
+# window.Names5 = new PersistedNames
+# window.Names6 = new PersistedNames
 
 
 
@@ -94,22 +100,17 @@ class NameSelector.Views.SelectSex extends Backbone.View
 
 
 class NameSelector.Views.Names extends Backbone.View
-  initialize: ->
-    # @listenTo NamesToSelect, 'add', @addOne
-    # @listenTo NamesToSelect, 'reset', @addAll
-    # @listenTo NamesToSelect, 'all', @addAll
-
-
   el: '.main'
   events:
     'click #names': 'toggle'
   template: HandlebarsTemplates.names
   render: ->
     @$el.html @template()
+    @addAll()
     @
 
   addAll: ->
-    NamesToSelect.each @addOne
+    AllNames.each @addOne
 
   addOne: (name)->
     (new NameSelector.Views.Name model: name).render()
@@ -117,7 +118,8 @@ class NameSelector.Views.Names extends Backbone.View
   toggle: (event)->
     button = $(event.target)
     nameId = button.data 'id'
-    NamesToSelect.get(nameId)[if button.hasClass 'active' then 'down' else 'up']()
+    button.toggleClass 'btn-primary'
+    AllNames.get(nameId)[if button.hasClass 'active' then 'down' else 'up']()
 
 
 class NameSelector.Views.Name extends Backbone.View
