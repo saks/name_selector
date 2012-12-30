@@ -9,7 +9,6 @@
 
 window.NameSelector =
   Models:      {}
-  Controllers: {}
   Collections: {}
   Routes:      {}
   Views:       {}
@@ -19,16 +18,71 @@ window.NameSelector =
     Backbone.history.start()
 
 
+window.Storage = Storage =
+  empty: ->
+    localStorage.length <= 0
 
+  keyForScore: (score)->
+    "names-with-score-#{score}"
+
+  idsWithScore: (score)->
+    ((ids = localStorage.getItem Storage.keyForScore(score)) && ids.split ',') || []
+
+  hasScore: (id, score)->
+    id = id + ''
+
+    (ids = Storage.idsWithScore(score)).length > 0 && (_.indexOf(ids, id) >= 0)
+
+  removeFromScores: (id, score)->
+    id = id + ''
+
+    if score > 0
+      ids = Storage.idsWithScore score
+
+      if ids.length > 0
+        index = _.indexOf ids, id
+        ids.splice index, 1
+        localStorage.setItem Storage.keyForScore(score), _.uniq(ids).join(',')
+
+  addToScores: (id, score)->
+    id = id + ''
+
+    if score > 0
+      ids = Storage.idsWithScore score
+      ids.push id
+      localStorage.setItem Storage.keyForScore(score), _.uniq(ids).join(',')
 
 # models
 class Name extends Backbone.Model
-  defaults:
-    score: 0
+  score: ->
+    if score = @get('score')
+      return score
+
+    id = @get 'id'
+
+    if !Storage.empty()
+      return i for i in [1..10] when Storage.hasScore(id, i)
+
+    0
+
   up: ->
-    @set 'score', @get('score') + 1
+    oldScore = @score()
+    newScore = oldScore + 1
+    id       = @get('id')
+
+    @set 'score', newScore
+    Storage.removeFromScores id, oldScore
+    Storage.addToScores id, newScore
+
   down: ->
-    @set 'score', @get('score') - 1
+    oldScore = @score()
+    newScore = oldScore - 1
+    id       = @get('id')
+
+    @set 'score', newScore
+    Storage.removeFromScores id, oldScore
+    Storage.addToScores id, newScore
+
 
 # collections
 PersistedNames = Backbone.Collection.extend
@@ -37,15 +91,8 @@ PersistedNames = Backbone.Collection.extend
 
 NotPersistedNames = Backbone.Collection.extend
   model: Name
-  # localStorage: new Backbone.LocalStorage('name-selector')
 
 window.AllNames = new NotPersistedNames
-# window.Names1 = new PersistedNames
-# window.Names2 = new PersistedNames
-# window.Names3 = new PersistedNames
-# window.Names4 = new PersistedNames
-# window.Names5 = new PersistedNames
-# window.Names6 = new PersistedNames
 
 
 
