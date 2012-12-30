@@ -15,7 +15,6 @@ window.Name = class Name extends Backbone.Model
     newScore = oldScore + 1
     id       = @get('id')
 
-    @set 'score', newScore
     Storage.removeFromScores id, oldScore
     Storage.addToScores id, newScore
 
@@ -24,7 +23,6 @@ window.Name = class Name extends Backbone.Model
     newScore = oldScore - 1
     id       = @get('id')
 
-    @set 'score', newScore
     Storage.removeFromScores id, oldScore
     Storage.addToScores id, newScore
 
