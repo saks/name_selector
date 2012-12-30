@@ -64,6 +64,8 @@ class NameSelector.Views.Names extends Backbone.View
   el: '.main'
   events:
     'click #names': 'toggle'
+    'click .select_scope': 'changeScope'
+
   template: HandlebarsTemplates.names
   render: ->
     @$el.html @template(
@@ -71,14 +73,14 @@ class NameSelector.Views.Names extends Backbone.View
       sex: 'мальчика'
       boy: 'мальчика'
       girl: 'девочки'
-      from: ' из ещё '
-      names_scope: 'не просмотренных имён'
+      from: ' из '
+      names_scope: T().scope[Storage.getCurrentNameScore()]
     )
     @addAll()
     @
 
   addAll: ->
-    AllNames.each @addOne
+    _.each Name.withScore(Storage.getCurrentNameScore()), @addOne
 
   addOne: (name)->
     (new NameSelector.Views.Name model: name).render()
@@ -86,8 +88,16 @@ class NameSelector.Views.Names extends Backbone.View
   toggle: (event)->
     button = $(event.target)
     nameId = button.data 'id'
-    button.toggleClass 'btn-primary'
-    AllNames.get(nameId)[if button.hasClass 'active' then 'down' else 'up']()
+
+    if nameId
+      button.toggleClass 'btn-primary'
+      AllNames.get(nameId)[if button.hasClass 'active' then 'down' else 'up']()
+
+  changeScope: (event)->
+    target = @$ event.target
+    score  = (if target.hasClass 'select_scope' then target else target.parent()).data 'score'
+    Storage.setCurrentNameScore score
+    @render()
 
 
 class NameSelector.Views.Name extends Backbone.View

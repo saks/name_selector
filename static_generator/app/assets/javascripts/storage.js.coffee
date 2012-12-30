@@ -1,4 +1,11 @@
 window.Storage = Storage =
+
+  getCurrentNameScore: ->
+    localStorage.getItem('currentNameScore') || 0
+
+  setCurrentNameScore: (score)->
+    localStorage.setItem 'currentNameScore', score
+
   empty: ->
     localStorage.length <= 0
 

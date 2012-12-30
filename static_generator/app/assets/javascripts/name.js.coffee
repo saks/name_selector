@@ -1,4 +1,4 @@
-class Name extends Backbone.Model
+window.Name = class Name extends Backbone.Model
   score: ->
     if score = @get('score')
       return score
@@ -27,6 +27,21 @@ class Name extends Backbone.Model
     @set 'score', newScore
     Storage.removeFromScores id, oldScore
     Storage.addToScores id, newScore
+
+Name.withScore = (score)->
+  score = score + ''
+  if score is '0'
+    idsToReject = _.flatten [Storage.idsWithScore(1), Storage.idsWithScore(2),
+      Storage.idsWithScore(3), Storage.idsWithScore(4), Storage.idsWithScore(5)]
+
+    _.filter AllNames.models, (model)->
+      _.indexOf(idsToReject, model.get('id')) < 0
+
+  else
+    Storage.idsWithScore(score).map (id)->
+      AllNames.get id
+
+
 
 PersistedNames = Backbone.Collection.extend
   model: Name
