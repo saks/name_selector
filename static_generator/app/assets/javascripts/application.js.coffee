@@ -1,5 +1,6 @@
 #= require jquery
 #= require bootstrap-button
+#= require bootstrap-dropdown
 #= require underscore
 #= require backbone
 #= require backbone.localStorage

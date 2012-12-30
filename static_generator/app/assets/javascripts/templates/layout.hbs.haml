@@ -2,12 +2,28 @@
   .page-header
     .navbar.navbar-inverse.head
       %ul.nav.nav-pills.pull-right
-        %li.active
-          %a{href: "#"}
-            {{home}}
-        %li
-          %a{href: "#"}
-            {{about}}
+        %li.dropdown.active
+          %a.dropdown-toggle{data: {toggle: :dropdown}, href: 'javascript:void(0)'}
+            Выбирать из
+          %ul.dropdown-menu{role: :menu, 'aria-labelledby' => :dLabel}
+            %li.active
+              %a{href: 'javascript:void(0)'}
+                Ещё не просмотренных
+            %li
+              %a{href: 'javascript:void(0)'}
+                Помеченных один раз
+            %li
+              %a{href: 'javascript:void(0)'}
+                Помеченных два раза
+            %li
+              %a{href: 'javascript:void(0)'}
+                Помеченных три раза
+            %li
+              %a{href: 'javascript:void(0)'}
+                Помеченных четыре раза
+            %li
+              %a{href: 'javascript:void(0)'}
+                Лучших
       %h1
         {{main_page_header}}
   .main
