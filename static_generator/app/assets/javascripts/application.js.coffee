@@ -1,4 +1,5 @@
 #= require jquery
+#= require i18n/translations
 #= require bootstrap-button
 #= require bootstrap-dropdown
 #= require underscore
@@ -7,18 +8,8 @@
 #= require handlebars.runtime
 #= require_tree ./templates
 #= require storage
-
-
-window.NameSelector =
-  Models:      {}
-  Collections: {}
-  Routes:      {}
-  Views:       {}
-  init: ->
-    AllNames.reset [{text: 'Alex', id: '1'}, {text: 'Peter', id: '2'}]
-    NameSelector.app = new NameSelector.Routes.Names
-    Backbone.history.start()
-
+#= require backbone_app
+#= require name
 
 
 # routing
@@ -38,7 +29,7 @@ class NameSelector.Routes.Names extends Backbone.Router
   renderLayout: ->
     (new NameSelector.Views.Layout).render()
 
-
+T = NameSelector.T = -> I18n.translations[NameSelector.currentLocale]
 
 # views
 class NameSelector.Views.Layout extends Backbone.View
@@ -46,9 +37,9 @@ class NameSelector.Views.Layout extends Backbone.View
   template: HandlebarsTemplates.layout
   render: ->
     html = @template
-      home: 'Home',
-      about: 'About',
-      main_page_header: 'Подбор имени ребёнка',
+      main_page_header:  T().main_page_header
+      back_to_main_page: T().back_to_main_page
+      is_main_page:      '' == location.hash
     @$el.html html
     @
 
@@ -60,7 +51,7 @@ class NameSelector.Views.SelectSex extends Backbone.View
 
   template: HandlebarsTemplates.select_sex
   render: ->
-    html = @template start: 'Начнём!', boy: 'Мальчик', girl: 'Девочка'
+    html = @template start: T().lets_begin, boy: T().boy, girl: T().girl
     @$el.html html
     @
 
