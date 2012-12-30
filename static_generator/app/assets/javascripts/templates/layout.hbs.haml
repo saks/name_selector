@@ -1,0 +1,18 @@
+.container
+  .page-header
+    .navbar.navbar-inverse.head
+      %ul.nav.nav-pills.pull-right
+        %li.active
+          %a{href: "#"}
+            {{home}}
+        %li
+          %a{href: "#"}
+            {{about}}
+      %h1
+        {{main_page_header}}
+  .main
+    {{{yield}}}
+  %hr
+  .footer
+    %p
+      &copy; Company 2012

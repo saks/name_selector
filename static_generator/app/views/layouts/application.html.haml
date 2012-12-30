@@ -2,27 +2,10 @@
 %html
   %head
     %title
-      StaticGenerator
+      TODO: page title
     = stylesheet_link_tag    "bootstrap", :media => "all"
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    .container
-      .page-header
-        .navbar.navbar-inverse.head
-          %ul{class: 'nav nav-pills pull-right'}
-            %li.active
-              %a{href: "#"}
-                Home
-            %li
-              %a{href: "#"}
-                About
-          %h1
-            Подбор имени ребёнка
-      .main.app
-        = yield
-      %hr
-      .footer
-        %p
-          &copy; Company 2012
+    #app

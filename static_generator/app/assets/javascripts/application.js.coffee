@@ -25,16 +25,34 @@ class NameSelector.Routes.Names extends Backbone.Router
     '': 'select_sex'
 
   select_sex: ->
-    view = new NameSelector.Views.SelectSex()
-    $('.app').html view.render().$el
+    @_renderWithLayout new NameSelector.Views.SelectSex
+
+  _renderWithLayout: (mainPageTemplate)->
+    mainPageContent = mainPageTemplate.render().$el.html()
+    layout = new NameSelector.Views.Layout pageContent: mainPageContent
+    $('#app').html layout.render().$el
+
 
 
 # views
-class NameSelector.Views.SelectSex extends Backbone.View
+class NameSelector.Views.Layout extends Backbone.View
+  template: HandlebarsTemplates.layout
   render: ->
-    html = HandlebarsTemplates.select_sex start: 'Начнём!', boy: 'Мальчик', girl: 'Девочка'
+    html = @template
+      home: 'Home',
+      about: 'About',
+      main_page_header: 'Подбор имени ребёнка',
+      yield: @options.pageContent
     @$el.html html
     @
 
 
-jQuery -> NameSelector.init()
+class NameSelector.Views.SelectSex extends Backbone.View
+  template: HandlebarsTemplates.select_sex
+  render: ->
+    html = @template start: 'Начнём!', boy: 'Мальчик', girl: 'Девочка'
+    @$el.html html
+    @
+
+
+jQuery NameSelector.init
