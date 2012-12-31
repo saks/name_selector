@@ -23,3 +23,6 @@ RSYNC_EXCLUDE_APP = ['eggs', '*.bin', '*.out', '*.log', '*.db', '*.swp',
 
 def sync():
     rsync_project('~/%s' % SOURCE_DIR, './*', exclude=RSYNC_EXCLUDE_APP)
+
+def collectstatic():
+    run('cd ~/names && export PYTHONPATH=../modules/ && ./manage.py collectstatic')
