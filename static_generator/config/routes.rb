@@ -1,6 +1,8 @@
 StaticGenerator::Application.routes.draw do
   root to: 'page#index'
 
+  get '/name/:sex' => 'page#names'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

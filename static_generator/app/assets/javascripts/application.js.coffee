@@ -56,8 +56,15 @@ class NameSelector.Views.SelectSex extends Backbone.View
     @
 
   startNameSelection: (event)->
-    NameSelector.sex = $(event.currentTarget).data 'sex'
-    NameSelector.app.navigate 'select', trigger: true
+    $.get '/name/female/', (names) ->
+      normalizedNames = []
+      for id, name of names
+        normalizedNames.push id: id, text: name
+
+      AllNames.reset normalizedNames
+
+      NameSelector.sex = $(event.currentTarget).data 'sex'
+      NameSelector.app.navigate 'select', trigger: true
 
 
 class NameSelector.Views.Names extends Backbone.View
