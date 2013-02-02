@@ -11,8 +11,6 @@ group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
   gem 'handlebars_assets'
-  gem 'libv8'
-  gem 'therubyracer', platforms: :ruby
   gem 'haml_assets'
   gem 'bootstrap-sass'
   gem 'compass-rails'
